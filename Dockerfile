@@ -2,12 +2,12 @@ FROM node:15-alpine
 
 ENV NODE_ENV=production
 
-ENV CORS=""
+ENV CORS="*"
 
 ENV MJML_KEEP_COMMENTS=false
 ENV MJML_VALIDATION_LEVEL=soft
 ENV MJML_MINIFY=true
-ENV MJML_MINIFY=false
+ENV MJML_BEAUTIFY=false
 
 COPY package* ./
 
@@ -20,7 +20,7 @@ COPY index.js ./index.js
 
 COPY healthcheck.sh /healthcheck.sh
 
-HEALTHCHECK --timeout=30s \
+HEALTHCHECK --interval=1m --timeout=30s \
   CMD /healthcheck.sh || exit 1
 
 EXPOSE 80
